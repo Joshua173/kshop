@@ -8,7 +8,7 @@ part 'database.g.dart';
 
 class Products extends Table {
   IntColumn get id => integer().autoIncrement()();
-  TextColumn get name => text().withLength(min: 5, max: 50)();
+  TextColumn get name => text().withLength(min: 3, max: 50)();
   IntColumn get price => integer()();
   IntColumn get availale => integer()();
   IntColumn get sell => integer()();

@@ -270,7 +270,7 @@ class $ProductsTable extends Products with TableInfo<$ProductsTable, Product> {
   GeneratedTextColumn get name => _name ??= _constructName();
   GeneratedTextColumn _constructName() {
     return GeneratedTextColumn('name', $tableName, false,
-        minTextLength: 5, maxTextLength: 50);
+        minTextLength: 3, maxTextLength: 50);
   }
 
   final VerificationMeta _priceMeta = const VerificationMeta('price');

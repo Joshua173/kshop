@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'product.dart';
+import 'product/product.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -73,4 +73,3 @@ class TaskBox extends StatelessWidget {
     );
   }
 }
-
