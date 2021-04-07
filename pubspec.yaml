@@ -23,8 +23,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  moor:
-  sqlite3_flutter_libs:
+  moor: ^4.2.1
+  sqlite3_flutter_libs: ^0.4.1
   path_provider:
   path:
   provider:
@@ -37,7 +37,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  moor_generator:
+  moor_generator: ^4.2.1
   build_runner:
   editable: ^2.0.0
 

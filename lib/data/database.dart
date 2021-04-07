@@ -48,7 +48,7 @@ class MyDatabase extends _$MyDatabase {
   @override
   int get schemaVersion => 1;
 
-  // -------------------------------------Products----------------------------------------------
+  // Products
   Future<List<Product>> getAllProduct() => select(products).get();
 
   Stream<List<Product>> watchAllProducts() => select(products).watch();
@@ -59,8 +59,7 @@ class MyDatabase extends _$MyDatabase {
 
   Future deleteProduct(Product product) => delete(products).delete(product);
 
-  // -------------------------------------Impressions----------------------------------------------
-
+  // Impressions
   Future<List<Impression>> getAllImpressions() => select(impressions).get();
 
   Stream<List<Impression>> watchAllImpressions() => select(impressions).watch();
@@ -74,8 +73,7 @@ class MyDatabase extends _$MyDatabase {
   Future deleteImpression(Impression impression) =>
       delete(impressions).delete(impression);
 
-  // -------------------------------------WifiTickets----------------------------------------------
-
+  // WifiTickets
   Future<List<WifiTicket>> getAllWifitickets() => select(wifiTickets).get();
 
   Stream<List<WifiTicket>> watchAllWifiTickets() => select(wifiTickets).watch();

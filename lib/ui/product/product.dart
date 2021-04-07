@@ -19,7 +19,7 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
-    final database = Provider.of<MyDatabase>(context, listen: false);
+    final database = Provider.of<MyDatabase>(context);
     return Scaffold(
       appBar: AppBar(
         leadingWidth: 200,
