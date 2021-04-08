@@ -4,7 +4,24 @@ import 'package:path/path.dart' as p;
 import 'package:moor/moor.dart';
 import 'dart:io';
 
+import 'dart:ffi';
+import 'package:sqlite3/sqlite3.dart';
+import 'package:sqlite3/open.dart';
+
 part 'database.g.dart';
+
+void main() {
+  open.overrideFor(OperatingSystem.linux, _openOnWindows);
+
+  final db = sqlite3.openInMemory();
+  db.dispose();
+}
+
+DynamicLibrary _openOnWindows() {
+  final script = File(Platform.script.toFilePath());
+  final libraryNextToScript = File('${script.path}/sqlite3.dll');
+  return DynamicLibrary.open(libraryNextToScript.path);
+}
 
 class Products extends Table {
   IntColumn get id => integer().autoIncrement()();
@@ -53,7 +70,9 @@ class MyDatabase extends _$MyDatabase {
 
   Stream<List<Product>> watchAllProducts() => select(products).watch();
 
-  Future insertProduct(Product product) => into(products).insert(product);
+  Future insertProduct(ProductsCompanion product) {
+    return (into(products).insert(product));
+  }
 
   Future updateProduct(Product product) => update(products).replace(product);
 

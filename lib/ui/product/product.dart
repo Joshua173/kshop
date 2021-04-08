@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moor/moor.dart';
 import 'package:provider/provider.dart';
 import 'package:kshop/data/database.dart';
 import 'package:editable/editable.dart';
@@ -46,59 +47,16 @@ class _ProductPageState extends State<ProductPage> {
           borderColor: Colors.black,
           onSubmitted: (value) {},
           onRowSaved: (value) {
-            final product = Product(
-                id: value['row'],
-                name: value['nom'],
-                price: num.parse(value['prix']),
-                availale: num.parse(value['disponibles']),
-                sell: num.parse(value['vendus']),
-                categorie: value['categorie']);
+            final product = ProductsCompanion(
+                name: Value(value['nom']),
+                price: Value(int.parse(value['prix'])),
+                availale: Value(int.parse(value['disponibles'])),
+                sell: Value(int.parse(value['vendus'])),
+                categorie: Value(value['categorie']));
             database.insertProduct(product);
           },
         ),
       ),
     );
-    //   floatingActionButton: FloatingActionButton(
-    //     onPressed: () {
-    //       // Add your onPressed code here!
-    //     },
-    //     child: const Icon(
-    //       Icons.add,
-    //       size: 50,
-    //     ),
-    //     backgroundColor: Colors.grey,
-    //   ),
-    // );
   }
 }
-
-// StreamBuilder<List<Product>> _buildProductList(BuildContext context) {
-//   final database = Provider.of<MyDatabase>(context);
-//   return StreamBuilder(
-//     stream: database.watchAllProducts(),
-//     builder: (context, AsyncSnapshot<List<Product>> snapshot) {
-//       final products = snapshot.data ?? [];
-
-//       return ListView.builder(
-//         itemCount: products.length,
-//         itemBuilder: (_, index) {
-//           final itemProduct = products[index];
-//           return _buildListItem(itemProduct, database);
-//         },
-//       );
-//     },
-//   );
-// }
-
-// Widget _buildListItem(Product itemProduct, MyDatabase database) {
-//   return Table(
-//     border: TableBorder.all(),
-//     children: [
-//       TableRow(children: [
-//         Text('Sport',
-//             textAlign: TextAlign.center,
-//             style: TextStyle(fontWeight: FontWeight.bold)),
-//       ]),
-//     ],
-//   );
-// }
