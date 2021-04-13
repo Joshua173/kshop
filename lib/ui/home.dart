@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'product/product.dart';
 
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -8,11 +9,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var taskList = [
-    'one',
-    'two',
-    'three',
-    'four',
-    'five',
+    'Tmoney',
+    'Credit Togocel',
+    'Flooz',
+    'Credit Moov',
+    'Impressions',
+    'Ticket Wifi',
+    "Ventes d'articles"
   ];
 
   @override
