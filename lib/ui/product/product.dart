@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:kshop/ui/product/productView.dart';R
+
 import 'package:moor/moor.dart';
 import 'package:provider/provider.dart';
 import 'package:kshop/data/database.dart';
