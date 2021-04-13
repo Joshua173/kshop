@@ -1,6 +1,6 @@
 [] DATABASE
 ----------------------------
-[] create database 
+[*] create database
 [] create entry in database
 [] read entry in database
 [] update entry in database
@@ -10,7 +10,7 @@
 [] UI
 -----------------------------
 [] splash screen
-[] home page
+[*] home page
 [] task page
 [] task editing components
 
