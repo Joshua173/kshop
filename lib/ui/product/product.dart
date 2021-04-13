@@ -55,7 +55,7 @@ class _ProductPageState extends State<ProductPage> {
                   availale: Value(int.parse(value['disponibles'])),
                   sell: Value(int.parse(value['vendus'])),
                   categorie: Value(value['categorie']));
-              Provider.of(context, listen: false).insertProduct(product);
+              MyDatabase().insertProduct(product);
             },
           ),
         ),
