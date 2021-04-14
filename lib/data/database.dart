@@ -27,7 +27,7 @@ class Products extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get name => text().withLength(min: 3, max: 50)();
   IntColumn get price => integer()();
-  IntColumn get availale => integer()();
+  IntColumn get available => integer()();
   IntColumn get sell => integer()();
   TextColumn get categorie => text()();
 }

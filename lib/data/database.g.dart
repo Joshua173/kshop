@@ -11,14 +11,14 @@ class Product extends DataClass implements Insertable<Product> {
   final int id;
   final String name;
   final int price;
-  final int availale;
+  final int available;
   final int sell;
   final String categorie;
   Product(
       {@required this.id,
       @required this.name,
       @required this.price,
-      @required this.availale,
+      @required this.available,
       @required this.sell,
       @required this.categorie});
   factory Product.fromData(Map<String, dynamic> data, GeneratedDatabase db,
@@ -30,8 +30,8 @@ class Product extends DataClass implements Insertable<Product> {
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
       name: stringType.mapFromDatabaseResponse(data['${effectivePrefix}name']),
       price: intType.mapFromDatabaseResponse(data['${effectivePrefix}price']),
-      availale:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}availale']),
+      available:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}available']),
       sell: intType.mapFromDatabaseResponse(data['${effectivePrefix}sell']),
       categorie: stringType
           .mapFromDatabaseResponse(data['${effectivePrefix}categorie']),
@@ -49,8 +49,8 @@ class Product extends DataClass implements Insertable<Product> {
     if (!nullToAbsent || price != null) {
       map['price'] = Variable<int>(price);
     }
-    if (!nullToAbsent || availale != null) {
-      map['availale'] = Variable<int>(availale);
+    if (!nullToAbsent || available != null) {
+      map['available'] = Variable<int>(available);
     }
     if (!nullToAbsent || sell != null) {
       map['sell'] = Variable<int>(sell);
@@ -67,9 +67,9 @@ class Product extends DataClass implements Insertable<Product> {
       name: name == null && nullToAbsent ? const Value.absent() : Value(name),
       price:
           price == null && nullToAbsent ? const Value.absent() : Value(price),
-      availale: availale == null && nullToAbsent
+      available: available == null && nullToAbsent
           ? const Value.absent()
-          : Value(availale),
+          : Value(available),
       sell: sell == null && nullToAbsent ? const Value.absent() : Value(sell),
       categorie: categorie == null && nullToAbsent
           ? const Value.absent()
@@ -84,7 +84,7 @@ class Product extends DataClass implements Insertable<Product> {
       id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
       price: serializer.fromJson<int>(json['price']),
-      availale: serializer.fromJson<int>(json['availale']),
+      available: serializer.fromJson<int>(json['available']),
       sell: serializer.fromJson<int>(json['sell']),
       categorie: serializer.fromJson<String>(json['categorie']),
     );
@@ -96,7 +96,7 @@ class Product extends DataClass implements Insertable<Product> {
       'id': serializer.toJson<int>(id),
       'name': serializer.toJson<String>(name),
       'price': serializer.toJson<int>(price),
-      'availale': serializer.toJson<int>(availale),
+      'available': serializer.toJson<int>(available),
       'sell': serializer.toJson<int>(sell),
       'categorie': serializer.toJson<String>(categorie),
     };
@@ -106,14 +106,14 @@ class Product extends DataClass implements Insertable<Product> {
           {int id,
           String name,
           int price,
-          int availale,
+          int available,
           int sell,
           String categorie}) =>
       Product(
         id: id ?? this.id,
         name: name ?? this.name,
         price: price ?? this.price,
-        availale: availale ?? this.availale,
+        available: available ?? this.available,
         sell: sell ?? this.sell,
         categorie: categorie ?? this.categorie,
       );
@@ -123,7 +123,7 @@ class Product extends DataClass implements Insertable<Product> {
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('price: $price, ')
-          ..write('availale: $availale, ')
+          ..write('available: $available, ')
           ..write('sell: $sell, ')
           ..write('categorie: $categorie')
           ..write(')'))
@@ -137,7 +137,7 @@ class Product extends DataClass implements Insertable<Product> {
           name.hashCode,
           $mrjc(
               price.hashCode,
-              $mrjc(availale.hashCode,
+              $mrjc(available.hashCode,
                   $mrjc(sell.hashCode, categorie.hashCode))))));
   @override
   bool operator ==(dynamic other) =>
@@ -146,7 +146,7 @@ class Product extends DataClass implements Insertable<Product> {
           other.id == this.id &&
           other.name == this.name &&
           other.price == this.price &&
-          other.availale == this.availale &&
+          other.available == this.available &&
           other.sell == this.sell &&
           other.categorie == this.categorie);
 }
@@ -155,14 +155,14 @@ class ProductsCompanion extends UpdateCompanion<Product> {
   final Value<int> id;
   final Value<String> name;
   final Value<int> price;
-  final Value<int> availale;
+  final Value<int> available;
   final Value<int> sell;
   final Value<String> categorie;
   const ProductsCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
     this.price = const Value.absent(),
-    this.availale = const Value.absent(),
+    this.available = const Value.absent(),
     this.sell = const Value.absent(),
     this.categorie = const Value.absent(),
   });
@@ -170,19 +170,19 @@ class ProductsCompanion extends UpdateCompanion<Product> {
     this.id = const Value.absent(),
     @required String name,
     @required int price,
-    @required int availale,
+    @required int available,
     @required int sell,
     @required String categorie,
   })  : name = Value(name),
         price = Value(price),
-        availale = Value(availale),
+        available = Value(available),
         sell = Value(sell),
         categorie = Value(categorie);
   static Insertable<Product> custom({
     Expression<int> id,
     Expression<String> name,
     Expression<int> price,
-    Expression<int> availale,
+    Expression<int> available,
     Expression<int> sell,
     Expression<String> categorie,
   }) {
@@ -190,7 +190,7 @@ class ProductsCompanion extends UpdateCompanion<Product> {
       if (id != null) 'id': id,
       if (name != null) 'name': name,
       if (price != null) 'price': price,
-      if (availale != null) 'availale': availale,
+      if (available != null) 'available': available,
       if (sell != null) 'sell': sell,
       if (categorie != null) 'categorie': categorie,
     });
@@ -200,14 +200,14 @@ class ProductsCompanion extends UpdateCompanion<Product> {
       {Value<int> id,
       Value<String> name,
       Value<int> price,
-      Value<int> availale,
+      Value<int> available,
       Value<int> sell,
       Value<String> categorie}) {
     return ProductsCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
       price: price ?? this.price,
-      availale: availale ?? this.availale,
+      available: available ?? this.available,
       sell: sell ?? this.sell,
       categorie: categorie ?? this.categorie,
     );
@@ -225,8 +225,8 @@ class ProductsCompanion extends UpdateCompanion<Product> {
     if (price.present) {
       map['price'] = Variable<int>(price.value);
     }
-    if (availale.present) {
-      map['availale'] = Variable<int>(availale.value);
+    if (available.present) {
+      map['available'] = Variable<int>(available.value);
     }
     if (sell.present) {
       map['sell'] = Variable<int>(sell.value);
@@ -243,7 +243,7 @@ class ProductsCompanion extends UpdateCompanion<Product> {
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('price: $price, ')
-          ..write('availale: $availale, ')
+          ..write('available: $available, ')
           ..write('sell: $sell, ')
           ..write('categorie: $categorie')
           ..write(')'))
@@ -285,13 +285,13 @@ class $ProductsTable extends Products with TableInfo<$ProductsTable, Product> {
     );
   }
 
-  final VerificationMeta _availaleMeta = const VerificationMeta('availale');
-  GeneratedIntColumn _availale;
+  final VerificationMeta _availableMeta = const VerificationMeta('available');
+  GeneratedIntColumn _available;
   @override
-  GeneratedIntColumn get availale => _availale ??= _constructAvailale();
-  GeneratedIntColumn _constructAvailale() {
+  GeneratedIntColumn get available => _available ??= _constructAvailable();
+  GeneratedIntColumn _constructAvailable() {
     return GeneratedIntColumn(
-      'availale',
+      'available',
       $tableName,
       false,
     );
@@ -323,7 +323,7 @@ class $ProductsTable extends Products with TableInfo<$ProductsTable, Product> {
 
   @override
   List<GeneratedColumn> get $columns =>
-      [id, name, price, availale, sell, categorie];
+      [id, name, price, available, sell, categorie];
   @override
   $ProductsTable get asDslTable => this;
   @override
@@ -350,11 +350,11 @@ class $ProductsTable extends Products with TableInfo<$ProductsTable, Product> {
     } else if (isInserting) {
       context.missing(_priceMeta);
     }
-    if (data.containsKey('availale')) {
-      context.handle(_availaleMeta,
-          availale.isAcceptableOrUnknown(data['availale'], _availaleMeta));
+    if (data.containsKey('available')) {
+      context.handle(_availableMeta,
+          available.isAcceptableOrUnknown(data['available'], _availableMeta));
     } else if (isInserting) {
-      context.missing(_availaleMeta);
+      context.missing(_availableMeta);
     }
     if (data.containsKey('sell')) {
       context.handle(
