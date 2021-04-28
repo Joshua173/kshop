@@ -24,7 +24,8 @@ DynamicLibrary _openOnWindows() {
 }
 
 // __openOnLinux could be implemented similarly by opening `sqlite3.so`
-//
+// can download the sqlite3.so ( for linux ) at https://sqlite.org/download.html
+
 class Products extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get name => text().withLength(min: 3, max: 50)();
