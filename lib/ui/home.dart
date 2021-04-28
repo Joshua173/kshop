@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'product/product.dart';
 
-
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();

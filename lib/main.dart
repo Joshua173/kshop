@@ -4,6 +4,7 @@ import 'data/database.dart';
 import 'ui/home.dart';
 
 // void main() => runApp(MyApp());
+// to instanciate
 MyDatabase database;
 
 void main() {

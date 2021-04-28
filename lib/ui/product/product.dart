@@ -49,17 +49,15 @@ class _ProductPageState extends State<ProductPage> {
 
           List rows = [];
           for (var product in products)
-            rows = rows +
-                [
-                  {
-                    "nom": product.name,
-                    "prix": product.price,
-                    "disponibles": product.available,
-                    "vendus": product.sell,
-                    "categorie": product.categorie
-                  }
-                ];
-          // List rows = products;
+            rows += [
+              {
+                "nom": product.name,
+                "prix": product.price,
+                "disponibles": product.available,
+                "vendus": product.sell,
+                "categorie": product.categorie
+              }
+            ];
           print(products[1]);
           return Editable(
             rows: rows,
