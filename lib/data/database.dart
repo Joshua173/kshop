@@ -11,7 +11,7 @@ import 'package:sqlite3/open.dart';
 part 'database.g.dart';
 
 void main() {
-  open.overrideFor(OperatingSystem.linux, _openOnWindows);
+  open.overrideFor(OperatingSystem.windows, _openOnWindows);
 
   final db = sqlite3.openInMemory();
   db.dispose();
@@ -23,6 +23,8 @@ DynamicLibrary _openOnWindows() {
   return DynamicLibrary.open(libraryNextToScript.path);
 }
 
+// __openOnLinux could be implemented similarly by opening `sqlite3.so`
+//
 class Products extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get name => text().withLength(min: 3, max: 50)();
@@ -62,9 +64,24 @@ class MyDatabase extends _$MyDatabase {
 
   // you should bump this number whenever you change or add a table definition. Migrations
   // are covered later in this readme.
-  @override
-  int get schemaVersion => 1;
 
+  @override
+  int get schemaVersion => 2;
+
+  @override
+  MigrationStrategy get migration => MigrationStrategy(onCreate: (Migrator m) {
+        return m.createAll();
+      }, onUpgrade: (Migrator m, int from, int to) async {
+        if (from == 1) {
+          // we added the dueDate property in the change from version 1
+          await m.alterTable(TableMigration(
+            products,
+            columnTransformer: {
+              products.available: const CustomExpression('availale')
+            },
+          ));
+        }
+      });
   // Products
   Future<List<Product>> getAllProduct() => select(products).get();
 
