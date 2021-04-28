@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:kshop/main.dart';
+// import 'package:kshop/main.dart';
 
 import 'package:moor/moor.dart';
 import 'package:kshop/data/database.dart';
 import 'package:editable/editable.dart';
+import 'package:provider/provider.dart';
 
 class ProductPage extends StatefulWidget {
   @override
@@ -11,7 +12,9 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
-  var prod = database.getAllProduct() ?? [];
+  MyDatabase provider;
+  
+  // prod = Provider.of(context).getAllProduct() ?? [];
 
   List headers = [
     {"title": 'Nom', 'index': 1, 'key': 'nom'},
@@ -23,6 +26,7 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
+    provider = Provider.of<MyDatabase>(context);
     return Scaffold(
       appBar: AppBar(
         leadingWidth: 200,
@@ -41,9 +45,29 @@ class _ProductPageState extends State<ProductPage> {
     );
   }
 
+  // return StreamProvider.value(
+  //     value: provider.getTodoByType(TodoType.TYPE_TASK.index),
+  //     child: Consumer<List<TodoData>>(
+  //       builder: (context, _dataList, child) {
+  //         return _dataList == null
+  //             ? Center(child: CircularProgressIndicator())
+  //             : ListView.builder(
+  //                 padding: const EdgeInsets.all(0),
+  //                 itemCount: _dataList.length,
+  //                 itemBuilder: (context, index) {
+  //                   return _dataList[index].isFinish
+  //                       ? _taskComplete(_dataList[index])
+  //                       : _taskUncomplete(_dataList[index]);
+  //                 },
+  //               );
+  //       },
+  //     ),
+  //   );
+  // }
+
   StreamBuilder<List<Product>> _buildProductList(BuildContext context) {
     return StreamBuilder(
-        stream: database.watchAllProducts(),
+        stream: provider.watchAllProducts(),
         builder: (context, AsyncSnapshot<List<Product>> snapshot) {
           final products = snapshot.data ?? [];
 
@@ -79,7 +103,7 @@ class _ProductPageState extends State<ProductPage> {
                   available: Value(int.parse(value['disponibles'])),
                   sell: Value(int.parse(value['vendus'])),
                   categorie: Value(value['categorie']));
-              database.insertProduct(product);
+              provider.insertProduct(product);
             },
           );
         });
