@@ -13,7 +13,7 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   MyDatabase provider;
-  
+
   // prod = Provider.of(context).getAllProduct() ?? [];
 
   List headers = [
@@ -45,67 +45,50 @@ class _ProductPageState extends State<ProductPage> {
     );
   }
 
-  // return StreamProvider.value(
-  //     value: provider.getTodoByType(TodoType.TYPE_TASK.index),
-  //     child: Consumer<List<TodoData>>(
-  //       builder: (context, _dataList, child) {
-  //         return _dataList == null
-  //             ? Center(child: CircularProgressIndicator())
-  //             : ListView.builder(
-  //                 padding: const EdgeInsets.all(0),
-  //                 itemCount: _dataList.length,
-  //                 itemBuilder: (context, index) {
-  //                   return _dataList[index].isFinish
-  //                       ? _taskComplete(_dataList[index])
-  //                       : _taskUncomplete(_dataList[index]);
-  //                 },
-  //               );
-  //       },
-  //     ),
-  //   );
-  // }
-
   StreamBuilder<List<Product>> _buildProductList(BuildContext context) {
     return StreamBuilder(
         stream: provider.watchAllProducts(),
         builder: (context, AsyncSnapshot<List<Product>> snapshot) {
-          final products = snapshot.data ?? [];
+          if (snapshot.hasData) {
+            final products = snapshot.data;
 
-          List rows = [];
-          for (var product in products)
-            rows += [
-              {
-                "nom": product.name,
-                "prix": product.price,
-                "disponibles": product.available,
-                "vendus": product.sell,
-                "categorie": product.categorie
-              }
-            ];
-          print(products[1]);
-          return Editable(
-            rows: rows,
-            columns: headers,
-            columnRatio: 0.15,
-            tdPaddingLeft: 30,
-            showCreateButton: true,
-            tdStyle: TextStyle(fontSize: 20),
-            showSaveIcon: true,
-            saveIcon: Icons.check_circle_rounded,
-            saveIconColor: Colors.green,
-            saveIconSize: 50,
-            borderColor: Colors.black,
-            onSubmitted: (value) {},
-            onRowSaved: (value) {
-              final product = ProductsCompanion(
-                  name: Value(value['nom']),
-                  price: Value(int.parse(value['prix'])),
-                  available: Value(int.parse(value['disponibles'])),
-                  sell: Value(int.parse(value['vendus'])),
-                  categorie: Value(value['categorie']));
-              provider.insertProduct(product);
-            },
-          );
+            List rows = [];
+            for (var product in products)
+              rows += [
+                {
+                  "nom": product.name,
+                  "prix": product.price,
+                  "disponibles": product.available,
+                  "vendus": product.sell,
+                  "categorie": product.categorie
+                }
+              ];
+            return Editable(
+              rows: rows,
+              columns: headers,
+              columnRatio: 0.15,
+              tdPaddingLeft: 30,
+              showCreateButton: true,
+              tdStyle: TextStyle(fontSize: 20),
+              showSaveIcon: true,
+              saveIcon: Icons.check_circle_rounded,
+              saveIconColor: Colors.green,
+              saveIconSize: 50,
+              borderColor: Colors.black,
+              onSubmitted: (value) {},
+              onRowSaved: (value) {
+                final product = ProductsCompanion(
+                    name: Value(value['nom']),
+                    price: Value(int.parse(value['prix'])),
+                    available: Value(int.parse(value['disponibles'])),
+                    sell: Value(int.parse(value['vendus'])),
+                    categorie: Value(value['categorie']));
+                provider.insertProduct(product);
+              },
+            );
+          } else {
+            return CircularProgressIndicator();
+          }
         });
   }
 }
